@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdopteUneDev.DAL;
+using AdopteUneDev.Models;
 
 namespace AdopteUneDev.Controllers
 {
@@ -13,8 +14,16 @@ namespace AdopteUneDev.Controllers
         // GET: /Home/
         public ActionResult Index()
         {
-            List<Categories> lesCategories = Categories.ChargerToutesLesCategories();
-            return View(lesCategories);
+            Session["ControllerContext"] = this.ControllerContext;
+            HomeModel HM = new HomeModel
+            {
+                lstCategs = Categories.ChargerToutesLesCategories(),
+                lstLangs = ITLang.ChargerLesLangs(),
+                lstDevs = Developer.ChargerTousLesDevs(),
+            };
+
+            return View(HM);
+
         }
 	}
 }

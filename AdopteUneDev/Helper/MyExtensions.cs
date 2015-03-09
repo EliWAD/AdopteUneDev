@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using AdopteUneDev.DAL;
+using System.IO;
 
 namespace AdopteUneDev.Helper
 {
@@ -45,7 +46,7 @@ namespace AdopteUneDev.Helper
                 divPrincipal.AddCssClass("category-products");
                 divPrincipal.AddCssClass("panel-group");
                 //div1.Attributes.Add("id", "accordian");
-                divPrincipal.MergeAttribute("id", "accordian", true);
+                divPrincipal.Attributes.Add("id", "accordian");
 
 
                 foreach (Categories CurrentCateg in categs)
@@ -65,8 +66,8 @@ namespace AdopteUneDev.Helper
 
                     //<a data-toggle="collapse" data-parent="#accordian" href="#sportswear">
                     TagBuilder lienToggle = new TagBuilder("a");
-                    lienToggle.Attributes.Add("data-toogle", "collapse");
                     lienToggle.Attributes.Add("data-parent", "#accordian");
+                    lienToggle.Attributes.Add("data-toogle", "collapse");                    
                     lienToggle.Attributes.Add("href", "#" + CurrentCateg.CategLabel.Replace(" ",""));
 
                     //<span class="badge pull-right">
@@ -79,7 +80,7 @@ namespace AdopteUneDev.Helper
                     lienToggle.InnerHtml += CurrentCateg.CategLabel;
                     H4.InnerHtml = lienToggle.ToString();
                     divHeading.InnerHtml = H4.ToString();
-                    divCateg.InnerHtml = divHeading.InnerHtml.ToString();
+                    divCateg.InnerHtml = divHeading.ToString();
 
                     //Ajout des Langs
                     //<div id="sportswear" class="panel-collapse collapse">
@@ -117,8 +118,8 @@ namespace AdopteUneDev.Helper
 
         public static MvcHtmlString NombreDeDevParCateg (this HtmlHelper origin , IEnumerable<ITLang> langs)
         {
-            /*<div class="brands-name">
-                            <ul class="nav nav-pills nav-stacked">
+            
+                           /*<ul class="nav nav-pills nav-stacked">
                                 <li><a href="#"> <span class="pull-right">(50)</span>Project Manager</a></li>
                                 <li><a href="#"> <span class="pull-right">(56)</span>Junior Developer</a></li>
                                 <li><a href="#"> <span class="pull-right">(27)</span>Senior Developer</a></li>
@@ -126,12 +127,8 @@ namespace AdopteUneDev.Helper
                                 <li><a href="#"> <span class="pull-right">(5)</span>Business Analyst</a></li>
                                 <li><a href="#"> <span class="pull-right">(9)</span>Community Manager</a></li>
                             </ul>
-                        </div>
-                    </div>*/
-
-            //<div class="brands-name">
-            TagBuilder divBrand = new TagBuilder("div");
-            divBrand.AddCssClass("brand-name");
+                        </div>*/
+                    
 
                 //<ul class="nav nav-pills nav-stacked">
                 TagBuilder tagUl = new TagBuilder("ul");
@@ -147,14 +144,36 @@ namespace AdopteUneDev.Helper
                 //aLink.Attributes.Add("href", "#" + CurrentLang.ITLabel);
                 TagBuilder spanBadge = new TagBuilder("span");
                 spanBadge.AddCssClass("pull-right");
-                spanBadge.SetInnerText("(" + +")");
-                aLink.InnerHtml = CurrentLang.ToString();
-
-
-
+                spanBadge.InnerHtml = "(" + CurrentLang.Developers.Count().ToString()+")";
+                aLink.InnerHtml = spanBadge.ToString();
+                aLink.InnerHtml += CurrentLang.ITLabel.Replace(" ", "");
+                
+                tagLi.InnerHtml = aLink.ToString();
+                tagUl.InnerHtml += tagLi.ToString();
 
             }
 
+            return new MvcHtmlString(tagUl.ToString());
+
+
+/*            TagBuilder ta = new TagBuilder("ul");
+            ta.AddCssClass("nav-stacked");
+            ta.AddCssClass("nav-pills");
+            ta.AddCssClass("nav");
+            foreach (ITLang item in langs)
+            {
+                TagBuilder tli = new TagBuilder("li");
+                TagBuilder ah = new TagBuilder("a");
+                TagBuilder tspan = new TagBuilder("span");
+                tspan.AddCssClass("pull-right");
+                tspan.InnerHtml = "(" + item.Developers.Count().ToString() + ")";
+                ah.InnerHtml = tspan.ToString();
+                ah.InnerHtml += item.ITLabel.Replace(" ", "");
+                tli.InnerHtml = ah.ToString();
+                ta.InnerHtml += tli.ToString();
+            }
+            return new MvcHtmlString(ta.ToString());
+*/
         }
     }
 }

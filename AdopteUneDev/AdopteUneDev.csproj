@@ -196,6 +196,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Helper\MyExtensions.cs" />
+    <Compile Include="Models\HomeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -221,7 +222,6 @@
     <Folder Include="Areas\Membre\Controllers\" />
     <Folder Include="Areas\Membre\Models\" />
     <Folder Include="Areas\Membre\Views\Shared\" />
-    <Folder Include="Models\" />
     <Folder Include="NewFolder1\" />
     <Folder Include="Views\Login\" />
   </ItemGroup>
@@ -246,7 +246,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>52224</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52109/</IISUrl>
+          <IISUrl>http://localhost:52110/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
